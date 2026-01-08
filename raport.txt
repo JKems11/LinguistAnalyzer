@@ -1,0 +1,5 @@
+=== RAPORT ANALIZY LINGWISTYCZNEJ ===
+Oryginalny tekst: J'aime beaucoup le sport, en particulier le volley-ball et le football. Je m'intéresse également aux jeux vidéo et aux nouvelles technologies.
+Tłumaczenie: Bardzo lubię sport, szczególnie siatkówkę i piłkę nożną. Interesują mnie także gry wideo i nowe technologie.
+Ocena emocji: POZYTYWNY (0.1465909090909091)
+=====================================

@@ -2,22 +2,37 @@ from deep_translator import GoogleTranslator
 
 from textblob import TextBlob
 
-tekst_od_użytkownika = input("Wpisz zdanie w dowolnym języku: ")
 
-tekst_en = GoogleTranslator(source='auto', target='en').translate(tekst_od_użytkownika)
-tekst_pl = GoogleTranslator(source='auto', target='pl').translate(tekst_od_użytkownika)
+with open('tekst.txt', 'r', encoding='utf-8') as plik:
+    tekst_z_pliku = plik.read()
+
+tekst_pl = GoogleTranslator(source='auto', target='pl').translate(tekst_z_pliku)
+tekst_en = GoogleTranslator(source='auto', target='en').translate(tekst_z_pliku)
 
 analiza = TextBlob(tekst_en)
-emocje = analiza.sentiment.polarity
+wynik_emocji = analiza.sentiment.polarity
 
+print("=" * 30)
+print("RAPORT ANALIZY TEKSTU")
+print("=" * 30)
+print(f"Oryginał (FR): {tekst_z_pliku}")
+print(f"Tłumaczenie (PL): {tekst_pl}")
 print("-" * 30)
-print(f"Tłumaczenie: {tekst_pl}")
 
-if emocje > 0:
-    wynik_opisowy = "POZYTYWNY"
-elif emocje < 0:
-    wynik_opisowy = "NEGATYWNY"
+if wynik_emocji > 0:
+    nastroj = "POZYTYWNY"
+elif wynik_emocji < 0:
+    nastroj = "NEGATYWNY"
 else:
-    wynik_opisowy = "NEUTRALNY"
+    nastroj = "NEUTRALNY"
 
-print(f"Wydźwięk tekstu: {wynik_opisowy} (Wynik: {emocje})")
+print(f"Analiza wydźwięku: {nastroj} (Score: {wynik_emocji})")
+
+with open('raport.txt', 'w', encoding='utf-8') as plik_raportu:
+    plik_raportu.write("=== RAPORT ANALIZY LINGWISTYCZNEJ ===\n")
+    plik_raportu.write(f"Oryginalny tekst: {tekst_z_pliku}\n")
+    plik_raportu.write(f"Tłumaczenie: {tekst_pl}\n")
+    plik_raportu.write(f"Ocena emocji: {nastroj} ({wynik_emocji})\n")
+    plik_raportu.write("=====================================\n")
+
+print("Sukces! Raport został wygenerowany w pliku raport.txt")
